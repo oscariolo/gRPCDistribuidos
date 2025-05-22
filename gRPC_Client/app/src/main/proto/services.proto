@@ -16,6 +16,6 @@ message ProductResponse {
     double price = 3; //precio del producto
 }
 
-service ProuctService {
+service ProductService {
     rpc GetProduct(ProductRequest) returns (ProductResponse); //metodo que recibe un ProductRequest y devuelve un ProductResponse
 }

@@ -56,9 +56,6 @@ protobuf {
     generateProtoTasks {
         // For each proto generation task, remove the default Java generation and add gRPC
         all().each { task ->
-            task.builtins {
-                remove 'java'
-            }
             task.plugins {
                 grpc {}
             }

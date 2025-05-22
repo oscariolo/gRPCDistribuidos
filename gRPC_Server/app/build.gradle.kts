@@ -61,10 +61,6 @@ protobuf {
     }
     generateProtoTasks {
         ofSourceSet("main").forEach { task ->
-            task.builtins {
-                // Generate Java code from .proto files
-                removeIf{ it.name == "java" }
-            }
             task.plugins {
                 // Use the gRPC plugin to generate gRPC code
                 create("grpc")

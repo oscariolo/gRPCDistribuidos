@@ -1,4 +1,4 @@
-package grpc_trabajo.impl;
+package grpc_trabajo.grpcImpl;
 import com.example.proto.services.*;
 
 import io.grpc.stub.StreamObserver;
@@ -8,7 +8,6 @@ public class ProductServiceImpl extends ProductServiceGrpc.ProductServiceImplBas
     public void getProduct(ProductRequest request, StreamObserver<ProductResponse> responseObserver) {
 
        
-
         // Simulate a product lookup
         String productName = request.getName();
         String productdescription = "";

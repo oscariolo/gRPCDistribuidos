@@ -22,9 +22,10 @@ _runtime_version.ValidateProtobufRuntimeVersion(
 _sym_db = _symbol_database.Default()
 
 
+from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0eservices.proto\x12\x0eproto_services\"\x1e\n\x0eProductRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"C\n\x0fProductResponse\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\r\n\x05price\x18\x03 \x01(\x01\"<\n\x0b\x43hatMessage\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x0c\n\x04room\x18\x03 \x01(\t2_\n\x0eProductService\x12M\n\nGetProduct\x12\x1e.proto_services.ProductRequest\x1a\x1f.proto_services.ProductResponse2S\n\x0b\x43hatService\x12\x44\n\x04\x43hat\x12\x1b.proto_services.ChatMessage\x1a\x1b.proto_services.ChatMessage(\x01\x30\x01\x42-\n\x1a\x63om.example.proto.servicesB\rServicesProtoP\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0eservices.proto\x12\x0eproto_services\x1a\x1bgoogle/protobuf/empty.proto\"\x1e\n\x0eProductRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"C\n\x0fProductResponse\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\r\n\x05price\x18\x03 \x01(\x01\"R\n\x0b\x43hatMessage\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\"\n\x04room\x18\x03 \x01(\x0b\x32\x14.proto_services.Room\"5\n\x04Room\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\"7\n\x10GetRoomsResponse\x12#\n\x05rooms\x18\x01 \x03(\x0b\x32\x14.proto_services.Room\"$\n\x14\x43onnectToRoomRequest\x12\x0c\n\x04room\x18\x01 \x01(\x05\";\n\x15\x43onnectToRoomResponse\x12\"\n\x04room\x18\x01 \x01(\x0b\x32\x14.proto_services.Room2_\n\x0eProductService\x12M\n\nGetProduct\x12\x1e.proto_services.ProductRequest\x1a\x1f.proto_services.ProductResponse2\xf7\x01\n\x0b\x43hatService\x12\x44\n\x04\x43hat\x12\x1b.proto_services.ChatMessage\x1a\x1b.proto_services.ChatMessage(\x01\x30\x01\x12\\\n\rConnectToRoom\x12$.proto_services.ConnectToRoomRequest\x1a%.proto_services.ConnectToRoomResponse\x12\x44\n\x08GetRooms\x12\x16.google.protobuf.Empty\x1a .proto_services.GetRoomsResponseB-\n\x1a\x63om.example.proto.servicesB\rServicesProtoP\x01\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -32,14 +33,22 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'services_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
   _globals['DESCRIPTOR']._serialized_options = b'\n\032com.example.proto.servicesB\rServicesProtoP\001'
-  _globals['_PRODUCTREQUEST']._serialized_start=34
-  _globals['_PRODUCTREQUEST']._serialized_end=64
-  _globals['_PRODUCTRESPONSE']._serialized_start=66
-  _globals['_PRODUCTRESPONSE']._serialized_end=133
-  _globals['_CHATMESSAGE']._serialized_start=135
-  _globals['_CHATMESSAGE']._serialized_end=195
-  _globals['_PRODUCTSERVICE']._serialized_start=197
-  _globals['_PRODUCTSERVICE']._serialized_end=292
-  _globals['_CHATSERVICE']._serialized_start=294
-  _globals['_CHATSERVICE']._serialized_end=377
+  _globals['_PRODUCTREQUEST']._serialized_start=63
+  _globals['_PRODUCTREQUEST']._serialized_end=93
+  _globals['_PRODUCTRESPONSE']._serialized_start=95
+  _globals['_PRODUCTRESPONSE']._serialized_end=162
+  _globals['_CHATMESSAGE']._serialized_start=164
+  _globals['_CHATMESSAGE']._serialized_end=246
+  _globals['_ROOM']._serialized_start=248
+  _globals['_ROOM']._serialized_end=301
+  _globals['_GETROOMSRESPONSE']._serialized_start=303
+  _globals['_GETROOMSRESPONSE']._serialized_end=358
+  _globals['_CONNECTTOROOMREQUEST']._serialized_start=360
+  _globals['_CONNECTTOROOMREQUEST']._serialized_end=396
+  _globals['_CONNECTTOROOMRESPONSE']._serialized_start=398
+  _globals['_CONNECTTOROOMRESPONSE']._serialized_end=457
+  _globals['_PRODUCTSERVICE']._serialized_start=459
+  _globals['_PRODUCTSERVICE']._serialized_end=554
+  _globals['_CHATSERVICE']._serialized_start=557
+  _globals['_CHATSERVICE']._serialized_end=804
 # @@protoc_insertion_point(module_scope)

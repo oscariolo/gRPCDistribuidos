@@ -2,6 +2,8 @@
 syntax = "proto3"; //definimos la version de proto a utilizar
 package proto_services;
 
+import "google/protobuf/empty.proto"; // para definir un mensaje vacio
+
 option java_multiple_files = true; // genera un archivo por cada mensaje
 option java_package = "com.example.proto.services"; //paquete de la clase generada
 option java_outer_classname = "ServicesProto"; //nombre de la clase wrapper generada
@@ -23,10 +25,29 @@ message ProductResponse {
 
 service ChatService {
     rpc Chat(stream ChatMessage) returns (stream ChatMessage); //metodo que recibe un ChatMessage y devuelve un ChatResponse
+    rpc ConnectToRoom(ConnectToRoomRequest) returns (ConnectToRoomResponse); //metodo que recibe un ConnectToRoomRequest y devuelve un ConnectToRoomResponse
+    rpc GetRooms(google.protobuf.Empty) returns (GetRoomsResponse); //metodo que recibe un GetRoomsRequest y devuelve un GetRoomsResponse
 }
 
 message ChatMessage{
     string sender = 1; //nombre del remitente
     string message = 2; //mensaje
-    string room = 3; //sala de conversacion
+    Room room = 3; //sala a la que pertenece el mensaje
+}
+
+message Room{
+    int32 id = 1; //id de la sala
+    string name = 2; //nombre de la sala
+    string description = 3; //descripcion de la sala
+}
+message GetRoomsResponse{
+    repeated Room rooms = 1; //lista de salas
+}
+
+message ConnectToRoomRequest{
+    int32 room = 1; //sala a la que nos queremos conectar
+}
+
+message ConnectToRoomResponse{
+    Room room = 1; //sala a la que nos conectamos
 }

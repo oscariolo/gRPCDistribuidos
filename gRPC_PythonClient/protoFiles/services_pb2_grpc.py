@@ -3,6 +3,7 @@
 import grpc
 import warnings
 
+from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 import services_pb2 as services__pb2
 
 GRPC_GENERATED_VERSION = '1.71.0'
@@ -112,6 +113,16 @@ class ChatServiceStub(object):
                 request_serializer=services__pb2.ChatMessage.SerializeToString,
                 response_deserializer=services__pb2.ChatMessage.FromString,
                 _registered_method=True)
+        self.ConnectToRoom = channel.unary_unary(
+                '/proto_services.ChatService/ConnectToRoom',
+                request_serializer=services__pb2.ConnectToRoomRequest.SerializeToString,
+                response_deserializer=services__pb2.ConnectToRoomResponse.FromString,
+                _registered_method=True)
+        self.GetRooms = channel.unary_unary(
+                '/proto_services.ChatService/GetRooms',
+                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                response_deserializer=services__pb2.GetRoomsResponse.FromString,
+                _registered_method=True)
 
 
 class ChatServiceServicer(object):
@@ -124,6 +135,20 @@ class ChatServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ConnectToRoom(self, request, context):
+        """metodo que recibe un ConnectToRoomRequest y devuelve un ConnectToRoomResponse
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetRooms(self, request, context):
+        """metodo que recibe un GetRoomsRequest y devuelve un GetRoomsResponse
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_ChatServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -131,6 +156,16 @@ def add_ChatServiceServicer_to_server(servicer, server):
                     servicer.Chat,
                     request_deserializer=services__pb2.ChatMessage.FromString,
                     response_serializer=services__pb2.ChatMessage.SerializeToString,
+            ),
+            'ConnectToRoom': grpc.unary_unary_rpc_method_handler(
+                    servicer.ConnectToRoom,
+                    request_deserializer=services__pb2.ConnectToRoomRequest.FromString,
+                    response_serializer=services__pb2.ConnectToRoomResponse.SerializeToString,
+            ),
+            'GetRooms': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetRooms,
+                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    response_serializer=services__pb2.GetRoomsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -160,6 +195,60 @@ class ChatService(object):
             '/proto_services.ChatService/Chat',
             services__pb2.ChatMessage.SerializeToString,
             services__pb2.ChatMessage.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ConnectToRoom(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/proto_services.ChatService/ConnectToRoom',
+            services__pb2.ConnectToRoomRequest.SerializeToString,
+            services__pb2.ConnectToRoomResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetRooms(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/proto_services.ChatService/GetRooms',
+            google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            services__pb2.GetRoomsResponse.FromString,
             options,
             channel_credentials,
             insecure,

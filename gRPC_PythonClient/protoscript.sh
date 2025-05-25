@@ -1,0 +1,1 @@
+python -m grpc_tools.protoc -Iproto --python_out=protoFiles --grpc_python_out=protoFiles proto/services.proto

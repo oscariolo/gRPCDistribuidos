@@ -129,21 +129,21 @@ class ChatServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def Chat(self, request_iterator, context):
-        """metodo que recibe un ChatMessage y devuelve un ChatResponse
+        """metodo stream que recibe y devuelve mensajes de chat
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def ConnectToRoom(self, request, context):
-        """metodo que recibe un ConnectToRoomRequest y devuelve un ConnectToRoomResponse
+        """metodo que recibe una peticion de conexion a una sala y devuelve una respuesta de conexion
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def GetRooms(self, request, context):
-        """metodo que recibe un GetRoomsRequest y devuelve un GetRoomsResponse
+        """metodo que recibe devuelve las salas disponibles
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -249,6 +249,123 @@ class ChatService(object):
             '/proto_services.ChatService/GetRooms',
             google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             services__pb2.GetRoomsResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+
+class UserServiceStub(object):
+    """Missing associated documentation comment in .proto file."""
+
+    def __init__(self, channel):
+        """Constructor.
+
+        Args:
+            channel: A grpc.Channel.
+        """
+        self.RegisterUser = channel.unary_unary(
+                '/proto_services.UserService/RegisterUser',
+                request_serializer=services__pb2.UserRegistration.SerializeToString,
+                response_deserializer=services__pb2.User.FromString,
+                _registered_method=True)
+        self.LoginUser = channel.unary_unary(
+                '/proto_services.UserService/LoginUser',
+                request_serializer=services__pb2.UserLogin.SerializeToString,
+                response_deserializer=services__pb2.User.FromString,
+                _registered_method=True)
+
+
+class UserServiceServicer(object):
+    """Missing associated documentation comment in .proto file."""
+
+    def RegisterUser(self, request, context):
+        """metodo que recibe un usuario y devuelve el usuario registrado
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def LoginUser(self, request, context):
+        """metodo que recibe un usuario y devuelve el usuario logueado
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+
+def add_UserServiceServicer_to_server(servicer, server):
+    rpc_method_handlers = {
+            'RegisterUser': grpc.unary_unary_rpc_method_handler(
+                    servicer.RegisterUser,
+                    request_deserializer=services__pb2.UserRegistration.FromString,
+                    response_serializer=services__pb2.User.SerializeToString,
+            ),
+            'LoginUser': grpc.unary_unary_rpc_method_handler(
+                    servicer.LoginUser,
+                    request_deserializer=services__pb2.UserLogin.FromString,
+                    response_serializer=services__pb2.User.SerializeToString,
+            ),
+    }
+    generic_handler = grpc.method_handlers_generic_handler(
+            'proto_services.UserService', rpc_method_handlers)
+    server.add_generic_rpc_handlers((generic_handler,))
+    server.add_registered_method_handlers('proto_services.UserService', rpc_method_handlers)
+
+
+ # This class is part of an EXPERIMENTAL API.
+class UserService(object):
+    """Missing associated documentation comment in .proto file."""
+
+    @staticmethod
+    def RegisterUser(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/proto_services.UserService/RegisterUser',
+            services__pb2.UserRegistration.SerializeToString,
+            services__pb2.User.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def LoginUser(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/proto_services.UserService/LoginUser',
+            services__pb2.UserLogin.SerializeToString,
+            services__pb2.User.FromString,
             options,
             channel_credentials,
             insecure,

@@ -24,9 +24,14 @@ message ProductResponse {
 
 
 service ChatService {
-    rpc Chat(stream ChatMessage) returns (stream ChatMessage); //metodo que recibe un ChatMessage y devuelve un ChatResponse
-    rpc ConnectToRoom(ConnectToRoomRequest) returns (ConnectToRoomResponse); //metodo que recibe un ConnectToRoomRequest y devuelve un ConnectToRoomResponse
-    rpc GetRooms(google.protobuf.Empty) returns (GetRoomsResponse); //metodo que recibe un GetRoomsRequest y devuelve un GetRoomsResponse
+    rpc Chat(stream ChatMessage) returns (stream ChatMessage); //metodo stream que recibe y devuelve mensajes de chat
+    rpc ConnectToRoom(ConnectToRoomRequest) returns (ConnectToRoomResponse); //metodo que recibe una peticion de conexion a una sala y devuelve una respuesta de conexion
+    rpc GetRooms(google.protobuf.Empty) returns (GetRoomsResponse); //metodo que recibe devuelve las salas disponibles
+}
+
+service UserService {
+    rpc RegisterUser(UserRegistration) returns (User); //metodo que recibe un usuario y devuelve el usuario registrado
+    rpc LoginUser(UserLogin) returns (User); //metodo que recibe un usuario y devuelve el usuario logueado
 }
 
 message ChatMessage{
@@ -46,8 +51,25 @@ message GetRoomsResponse{
 
 message ConnectToRoomRequest{
     int32 room = 1; //sala a la que nos queremos conectar
+    User user = 2; //usuario que se conecta
 }
 
 message ConnectToRoomResponse{
     Room room = 1; //sala a la que nos conectamos
+}
+
+message UserRegistration{
+    string username = 1; //nombre de usuario
+    string email = 2; //email del usuario
+    string password = 3; //contraseña del usuario
+}
+
+message UserLogin{
+    string email = 1; //email del usuario
+    string password = 2; //contraseña del usuario
+}
+
+message User {
+    int32 id = 1; //id del usuario
+    UserRegistration registration = 2; //informacion de registro del usuario
 }

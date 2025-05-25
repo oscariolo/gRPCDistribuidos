@@ -7,21 +7,24 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.example.proto.services.ChatMessage;
 import com.example.proto.services.Room;
+import com.example.proto.services.User;
 import com.google.protobuf.Empty;
 import com.example.proto.services.ChatServiceGrpc;
 import com.example.proto.services.ConnectToRoomRequest;
 import com.example.proto.services.ConnectToRoomResponse;
 import com.example.proto.services.GetRoomsResponse;
-
 import io.grpc.stub.StreamObserver;
+import grpc_trabajo.services.UserService; // Import the service holding the user database
 
 public class ChatServiceImpl extends ChatServiceGrpc.ChatServiceImplBase {
-    private final List<StreamObserver<ChatMessage>> clients = new CopyOnWriteArrayList<>();
     private final List<Room> rooms = new CopyOnWriteArrayList<>();
-    private final ConcurrentMap<Integer, CopyOnWriteArrayList<StreamObserver<ChatMessage>>> roomObservers = new ConcurrentHashMap<>();;
+    // Maps a room ID to a list of connected chat observers.
+    private final ConcurrentMap<Integer, CopyOnWriteArrayList<StreamObserver<ChatMessage>>> roomObservers = new ConcurrentHashMap<>();
+    // Maps a username to the room ID they are connected to.
+    private final ConcurrentMap<String, Integer> userRoomMapping = new ConcurrentHashMap<>();
 
     public ChatServiceImpl() {
-        // Iniciamos cuartos por defecto
+        // Initialize default rooms.
         Room room1 = Room.newBuilder().setName("GamingRoom").setDescription("Sala de gaming").setId(1).build();
         Room room2 = Room.newBuilder().setName("StudyRoom").setDescription("Sala de estudio").setId(2).build();
         rooms.add(room1);
@@ -29,10 +32,10 @@ public class ChatServiceImpl extends ChatServiceGrpc.ChatServiceImplBase {
     }
     
     @Override
-    public void getRooms(Empty request,StreamObserver<GetRoomsResponse> responseObserver) {
-        GetRoomsResponse.Builder responseBuilder = GetRoomsResponse.newBuilder(); //al haberlo definido con repeated, se puede usar el builder para generar la respuesta
+    public void getRooms(Empty request, StreamObserver<GetRoomsResponse> responseObserver) {
+        GetRoomsResponse.Builder responseBuilder = GetRoomsResponse.newBuilder();
         for (Room room : rooms) {
-            responseBuilder.addRooms(room); //agregamos cada sala a la respuesta
+            responseBuilder.addRooms(room);
         }
         GetRoomsResponse response = responseBuilder.build();
         responseObserver.onNext(response);
@@ -42,36 +45,55 @@ public class ChatServiceImpl extends ChatServiceGrpc.ChatServiceImplBase {
     @Override
     public void connectToRoom(ConnectToRoomRequest request, StreamObserver<ConnectToRoomResponse> responseObserver) {
         int roomId = request.getRoom();
+        // Search for the room by its ID.
         Room room = rooms.stream()
                 .filter(r -> r.getId() == roomId)
                 .findFirst()
                 .orElse(null);
 
         if (room != null) {
+            User user = request.getUser();
+            String username = user.getRegistration().getUsername();
+            // Verify that the user is registered using the shared userDatabase.
+            boolean userExists = UserService.userDatabase.values().stream()
+                    .anyMatch(u -> u.getRegistration().getUsername().equals(username));
+            if (!userExists) {
+                responseObserver.onError(new Throwable("Usuario no registrado en el sistema."));
+                return;
+            }
+            // Vinculate (associate) the user with the room.
+            userRoomMapping.put(username, roomId);
+            
             ConnectToRoomResponse response = ConnectToRoomResponse.newBuilder()
                     .setRoom(room)
                     .build();
             responseObserver.onNext(response);
             responseObserver.onCompleted();
         } else {
-            responseObserver.onError(new Throwable("Room not found"));
+            responseObserver.onError(new Throwable("Sala no encontrada con ID: " + roomId));
         }
     }
-
 
     @Override
     public StreamObserver<ChatMessage> chat(StreamObserver<ChatMessage> responseObserver) {
         return new StreamObserver<ChatMessage>() {
+            boolean registered = false;
+            String username = null;
             int roomId = -1;
             
             @Override
             public void onNext(ChatMessage msg) {
-                // If it's the first message, subscribe the client's observer to the specified room.
-                if (roomId == -1 && msg.hasRoom()) {
-                    roomId = msg.getRoom().getId();
+                if (!registered) {
+                    username = msg.getSender();
+                    Integer mappedRoomId = userRoomMapping.get(username);
+                    if (mappedRoomId == null) {
+                        responseObserver.onError(new Throwable("Usuario no registrado en ninguna sala. Conéctate a una sala primero mediante connectToRoom."));
+                        return;
+                    }
+                    roomId = mappedRoomId;
                     roomObservers.computeIfAbsent(roomId, r -> new CopyOnWriteArrayList<>()).add(responseObserver);
+                    registered = true;
                 }
-                // Envia mensajes a todos los clientes conectados a la sala.
                 CopyOnWriteArrayList<StreamObserver<ChatMessage>> observers = roomObservers.get(roomId);
                 if (observers != null) {
                     for (StreamObserver<ChatMessage> client : observers) {
@@ -82,7 +104,7 @@ public class ChatServiceImpl extends ChatServiceGrpc.ChatServiceImplBase {
 
             @Override
             public void onError(Throwable t) {
-                if (roomId != -1) {
+                if (registered) {
                     CopyOnWriteArrayList<StreamObserver<ChatMessage>> observers = roomObservers.get(roomId);
                     if (observers != null) {
                         observers.remove(responseObserver);
@@ -92,7 +114,7 @@ public class ChatServiceImpl extends ChatServiceGrpc.ChatServiceImplBase {
 
             @Override
             public void onCompleted() {
-                if (roomId != -1) {
+                if (registered) {
                     CopyOnWriteArrayList<StreamObserver<ChatMessage>> observers = roomObservers.get(roomId);
                     if (observers != null) {
                         observers.remove(responseObserver);
@@ -102,5 +124,4 @@ public class ChatServiceImpl extends ChatServiceGrpc.ChatServiceImplBase {
             }
         };
     }
-
 }

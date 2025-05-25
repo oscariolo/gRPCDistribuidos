@@ -3,6 +3,7 @@ import java.util.List;
 
 import grpc_trabajo.grpcImpl.ChatServiceImpl;
 import grpc_trabajo.grpcImpl.ProductServiceImpl;
+import grpc_trabajo.grpcImpl.UserServiceImpl;
 import io.grpc.ServerServiceDefinition;
 
 public class AppConfig {
@@ -17,9 +18,9 @@ public class AppConfig {
     public List<ServerServiceDefinition> getServices() { 
 
         implementedServices.add(new ProductServiceImpl().bindService()); //Agregamos por cada servicio implementado
-        implementedServices.add(new ChatServiceImpl().bindService()); 
+        implementedServices.add(new ChatServiceImpl().bindService());
+        implementedServices.add(new UserServiceImpl().bindService()); 
 
-        
         return implementedServices;
     }
 

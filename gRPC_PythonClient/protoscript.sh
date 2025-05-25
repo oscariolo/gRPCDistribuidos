@@ -1,1 +1,1 @@
-python -m grpc_tools.protoc -Iproto --python_out=protoFiles --grpc_python_out=protoFiles proto/services.proto
+python -m grpc_tools.protoc -Iproto --python_out=protoFiles --grpc_python_out=protoFiles proto/services.proto #este script es el que genera los archivos .py a partir de los proto

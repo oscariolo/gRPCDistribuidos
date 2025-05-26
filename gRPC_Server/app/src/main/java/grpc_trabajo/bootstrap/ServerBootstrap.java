@@ -16,11 +16,11 @@ public class ServerBootstrap {
 
     public void start(AppConfig config) throws IOException, InterruptedException {
         executor = java.util.concurrent.Executors.newFixedThreadPool(2); //hilos que utilizara para manejar las peticiones rpc
-        server = Grpc.newServerBuilderForPort(config.getPort(), InsecureServerCredentials.create())
+        server = Grpc.newServerBuilderForPort(config.getPort(), InsecureServerCredentials.create()) //inicializar el servidor grpc
         .executor(executor)
-        .addServices(config.getServices())
+        .addServices(config.getServices()) //agregamos los servicios grpc al servidor definidos en config
         .build()
-        .start(); //inicia el servidor y agrega el servicio
+        .start(); //inicia el servidor con los servicios agregados
         logger.info("Server started, listening on " + config.getPort());
         Runtime.getRuntime().addShutdownHook(new Thread() {
         @Override

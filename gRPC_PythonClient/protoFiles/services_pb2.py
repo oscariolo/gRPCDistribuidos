@@ -25,7 +25,7 @@ _sym_db = _symbol_database.Default()
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0eservices.proto\x12\x0eproto_services\x1a\x1bgoogle/protobuf/empty.proto\"\x1e\n\x0eProductRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"C\n\x0fProductResponse\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\r\n\x05price\x18\x03 \x01(\x01\"R\n\x0b\x43hatMessage\x12\x0e\n\x06sender\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\"\n\x04room\x18\x03 \x01(\x0b\x32\x14.proto_services.Room\"5\n\x04Room\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\"7\n\x10GetRoomsResponse\x12#\n\x05rooms\x18\x01 \x03(\x0b\x32\x14.proto_services.Room\"H\n\x14\x43onnectToRoomRequest\x12\x0c\n\x04room\x18\x01 \x01(\x05\x12\"\n\x04user\x18\x02 \x01(\x0b\x32\x14.proto_services.User\";\n\x15\x43onnectToRoomResponse\x12\"\n\x04room\x18\x01 \x01(\x0b\x32\x14.proto_services.Room\"E\n\x10UserRegistration\x12\x10\n\x08username\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\x12\x10\n\x08password\x18\x03 \x01(\t\",\n\tUserLogin\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"J\n\x04User\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x36\n\x0cregistration\x18\x02 \x01(\x0b\x32 .proto_services.UserRegistration2_\n\x0eProductService\x12M\n\nGetProduct\x12\x1e.proto_services.ProductRequest\x1a\x1f.proto_services.ProductResponse2\xf7\x01\n\x0b\x43hatService\x12\x44\n\x04\x43hat\x12\x1b.proto_services.ChatMessage\x1a\x1b.proto_services.ChatMessage(\x01\x30\x01\x12\\\n\rConnectToRoom\x12$.proto_services.ConnectToRoomRequest\x1a%.proto_services.ConnectToRoomResponse\x12\x44\n\x08GetRooms\x12\x16.google.protobuf.Empty\x1a .proto_services.GetRoomsResponse2\x93\x01\n\x0bUserService\x12\x46\n\x0cRegisterUser\x12 .proto_services.UserRegistration\x1a\x14.proto_services.User\x12<\n\tLoginUser\x12\x19.proto_services.UserLogin\x1a\x14.proto_services.UserB-\n\x1a\x63om.example.proto.servicesB\rServicesProtoP\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0eservices.proto\x12\x0eproto_services\x1a\x1bgoogle/protobuf/empty.proto\"R\n\x0b\x43hatMessage\x12\x0e\n\x06sender\x18\x01 \x01(\x05\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\"\n\x04room\x18\x03 \x01(\x0b\x32\x14.proto_services.Room\"5\n\x04Room\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\"7\n\x10GetRoomsResponse\x12#\n\x05rooms\x18\x01 \x03(\x0b\x32\x14.proto_services.Room\"H\n\x14\x43onnectToRoomRequest\x12\x0c\n\x04room\x18\x01 \x01(\x05\x12\"\n\x04user\x18\x02 \x01(\x0b\x32\x14.proto_services.User\";\n\x15\x43onnectToRoomResponse\x12\"\n\x04room\x18\x01 \x01(\x0b\x32\x14.proto_services.Room\"E\n\x10UserRegistration\x12\x10\n\x08username\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\x12\x10\n\x08password\x18\x03 \x01(\t\",\n\tUserLogin\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"J\n\x04User\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x36\n\x0cregistration\x18\x02 \x01(\x0b\x32 .proto_services.UserRegistration2\xf7\x01\n\x0b\x43hatService\x12\x44\n\x04\x43hat\x12\x1b.proto_services.ChatMessage\x1a\x1b.proto_services.ChatMessage(\x01\x30\x01\x12\\\n\rConnectToRoom\x12$.proto_services.ConnectToRoomRequest\x1a%.proto_services.ConnectToRoomResponse\x12\x44\n\x08GetRooms\x12\x16.google.protobuf.Empty\x1a .proto_services.GetRoomsResponse2\x93\x01\n\x0bUserService\x12\x46\n\x0cRegisterUser\x12 .proto_services.UserRegistration\x1a\x14.proto_services.User\x12<\n\tLoginUser\x12\x19.proto_services.UserLogin\x1a\x14.proto_services.UserB-\n\x1a\x63om.example.proto.servicesB\rServicesProtoP\x01\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -33,30 +33,24 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'services_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   _globals['DESCRIPTOR']._loaded_options = None
   _globals['DESCRIPTOR']._serialized_options = b'\n\032com.example.proto.servicesB\rServicesProtoP\001'
-  _globals['_PRODUCTREQUEST']._serialized_start=63
-  _globals['_PRODUCTREQUEST']._serialized_end=93
-  _globals['_PRODUCTRESPONSE']._serialized_start=95
-  _globals['_PRODUCTRESPONSE']._serialized_end=162
-  _globals['_CHATMESSAGE']._serialized_start=164
-  _globals['_CHATMESSAGE']._serialized_end=246
-  _globals['_ROOM']._serialized_start=248
-  _globals['_ROOM']._serialized_end=301
-  _globals['_GETROOMSRESPONSE']._serialized_start=303
-  _globals['_GETROOMSRESPONSE']._serialized_end=358
-  _globals['_CONNECTTOROOMREQUEST']._serialized_start=360
-  _globals['_CONNECTTOROOMREQUEST']._serialized_end=432
-  _globals['_CONNECTTOROOMRESPONSE']._serialized_start=434
-  _globals['_CONNECTTOROOMRESPONSE']._serialized_end=493
-  _globals['_USERREGISTRATION']._serialized_start=495
-  _globals['_USERREGISTRATION']._serialized_end=564
-  _globals['_USERLOGIN']._serialized_start=566
-  _globals['_USERLOGIN']._serialized_end=610
-  _globals['_USER']._serialized_start=612
-  _globals['_USER']._serialized_end=686
-  _globals['_PRODUCTSERVICE']._serialized_start=688
-  _globals['_PRODUCTSERVICE']._serialized_end=783
-  _globals['_CHATSERVICE']._serialized_start=786
-  _globals['_CHATSERVICE']._serialized_end=1033
-  _globals['_USERSERVICE']._serialized_start=1036
-  _globals['_USERSERVICE']._serialized_end=1183
+  _globals['_CHATMESSAGE']._serialized_start=63
+  _globals['_CHATMESSAGE']._serialized_end=145
+  _globals['_ROOM']._serialized_start=147
+  _globals['_ROOM']._serialized_end=200
+  _globals['_GETROOMSRESPONSE']._serialized_start=202
+  _globals['_GETROOMSRESPONSE']._serialized_end=257
+  _globals['_CONNECTTOROOMREQUEST']._serialized_start=259
+  _globals['_CONNECTTOROOMREQUEST']._serialized_end=331
+  _globals['_CONNECTTOROOMRESPONSE']._serialized_start=333
+  _globals['_CONNECTTOROOMRESPONSE']._serialized_end=392
+  _globals['_USERREGISTRATION']._serialized_start=394
+  _globals['_USERREGISTRATION']._serialized_end=463
+  _globals['_USERLOGIN']._serialized_start=465
+  _globals['_USERLOGIN']._serialized_end=509
+  _globals['_USER']._serialized_start=511
+  _globals['_USER']._serialized_end=585
+  _globals['_CHATSERVICE']._serialized_start=588
+  _globals['_CHATSERVICE']._serialized_end=835
+  _globals['_USERSERVICE']._serialized_start=838
+  _globals['_USERSERVICE']._serialized_end=985
 # @@protoc_insertion_point(module_scope)

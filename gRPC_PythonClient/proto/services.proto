@@ -8,6 +8,7 @@ option java_multiple_files = true; // genera un archivo por cada mensaje
 option java_package = "com.example.proto.services"; //paquete de la clase generada
 option java_outer_classname = "ServicesProto"; //nombre de la clase wrapper generada
 
+
 service ChatService {
     rpc Chat(stream ChatMessage) returns (stream ChatMessage); //metodo stream que recibe y devuelve mensajes de chat
     rpc ConnectToRoom(ConnectToRoomRequest) returns (ConnectToRoomResponse); //metodo que recibe una peticion de conexion a una sala y devuelve una respuesta de conexion
@@ -20,7 +21,7 @@ service UserService {
 }
 
 message ChatMessage{
-    string sender = 1; //nombre del remitente
+    int32 sender = 1; //id del remitente
     string message = 2; //mensaje
     Room room = 3; //sala a la que pertenece el mensaje
 }

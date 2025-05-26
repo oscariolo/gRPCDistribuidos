@@ -1,7 +1,7 @@
 package grpc_trabajo.grpcImpl;
 import com.example.proto.services.UserServiceGrpc.UserServiceImplBase;
 
-import grpc_trabajo.services.UserService;
+import grpc_trabajo.repository.UserRepository;
 
 import java.util.HashMap;
 
@@ -16,7 +16,7 @@ public class UserServiceImpl extends UserServiceImplBase {
     
     @Override
     public void registerUser(UserRegistration request, StreamObserver<User> responseObserver) {
-        HashMap<Integer, User> userDatabase = UserService.userDatabase; // Obtenemos la base de datos simulada de usuarios
+        HashMap<Integer, User> userDatabase = UserRepository.userDatabase; // Obtenemos la base de datos simulada de usuarios
         // Creamos un usuario y lo agregamos a la base de datos simulada
         String username = request.getUsername();
         String email = request.getEmail();
@@ -41,7 +41,7 @@ public class UserServiceImpl extends UserServiceImplBase {
     @Override
     public void loginUser(UserLogin request, StreamObserver<User> responseObserver) {
 
-        HashMap<Integer, User> userDatabase = UserService.userDatabase; // Obtenemos la base de datos simulada de usuarios
+        HashMap<Integer, User> userDatabase = UserRepository.userDatabase; // Obtenemos la base de datos simulada de usuarios
         // Verificamos por el email y la contraseña del usuario
         String email = request.getEmail();
         String password = request.getPassword();

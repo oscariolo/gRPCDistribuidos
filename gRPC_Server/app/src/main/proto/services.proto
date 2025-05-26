@@ -9,32 +9,40 @@ option java_package = "com.example.proto.services"; //paquete de la clase genera
 option java_outer_classname = "ServicesProto"; //nombre de la clase wrapper generada
 
 
+//Servicios de chat y salas
 service ChatService {
     rpc Chat(stream ChatMessage) returns (stream ChatMessage); //metodo stream que recibe y devuelve mensajes de chat
     rpc ConnectToRoom(ConnectToRoomRequest) returns (ConnectToRoomResponse); //metodo que recibe una peticion de conexion a una sala y devuelve una respuesta de conexion
     rpc GetRooms(google.protobuf.Empty) returns (GetRoomsResponse); //metodo que recibe devuelve las salas disponibles
 }
 
+//Servicios de usuario, registro y login
 service UserService {
     rpc RegisterUser(UserRegistration) returns (User); //metodo que recibe un usuario y devuelve el usuario registrado
     rpc LoginUser(UserLogin) returns (User); //metodo que recibe un usuario y devuelve el usuario logueado
 }
 
+
+//Objeto ChatMessage que representa un mensaje de chat
 message ChatMessage{
-    string sender = 1; //nombre del remitente
+    int32 sender = 1; //id del remitente
     string message = 2; //mensaje
     Room room = 3; //sala a la que pertenece el mensaje
 }
 
+//Objeto Room que representa una sala de chat
 message Room{
     int32 id = 1; //id de la sala
     string name = 2; //nombre de la sala
     string description = 3; //descripcion de la sala
 }
+
+//Objeto GetRoomsResponse que representa la respuesta al obtener las salas
 message GetRoomsResponse{
     repeated Room rooms = 1; //lista de salas
 }
 
+//Objeto ConnectToRoomRequest y ConnectToRoomResponse que representan la peticion y respuesta de conexion a una sala
 message ConnectToRoomRequest{
     int32 room = 1; //sala a la que nos queremos conectar
     User user = 2; //usuario que se conecta
@@ -44,6 +52,7 @@ message ConnectToRoomResponse{
     Room room = 1; //sala a la que nos conectamos
 }
 
+//Objeto UserRegistration y UserLogin que representan el registro y login de un usuario
 message UserRegistration{
     string username = 1; //nombre de usuario
     string email = 2; //email del usuario

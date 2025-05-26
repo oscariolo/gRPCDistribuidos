@@ -51,7 +51,7 @@ public class ChatServiceImpl extends ChatServiceGrpc.ChatServiceImplBase {
                 .findFirst()
                 .orElse(null);
 
-        if (room != null) {
+        if (room != null) { //Verifica si existe 
             User user = request.getUser();
             String username = user.getRegistration().getUsername();
             // Verify that the user is registered using the shared userDatabase.

@@ -8,20 +8,6 @@ option java_multiple_files = true; // genera un archivo por cada mensaje
 option java_package = "com.example.proto.services"; //paquete de la clase generada
 option java_outer_classname = "ServicesProto"; //nombre de la clase wrapper generada
 
-service ProductService {
-    rpc GetProduct(ProductRequest) returns (ProductResponse); //metodo que recibe un ProductRequest y devuelve un ProductResponse
-}
-
-message ProductRequest {
-    string name = 1; //nombre del producto
-}
-
-message ProductResponse {
-    string name = 1; //nombre del producto
-    string description = 2; //descripcion del producto
-    double price = 3; //precio del producto
-}
-
 
 service ChatService {
     rpc Chat(stream ChatMessage) returns (stream ChatMessage); //metodo stream que recibe y devuelve mensajes de chat

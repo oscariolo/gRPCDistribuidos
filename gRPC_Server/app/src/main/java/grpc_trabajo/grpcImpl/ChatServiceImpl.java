@@ -88,7 +88,7 @@ public class ChatServiceImpl extends ChatServiceGrpc.ChatServiceImplBase {
             @Override
             public void onNext(ChatMessage msg) {
                 if (!registered) { // Si el usuario no está registrado, obtenemos su ID y la sala a la que se conecta.
-                    userId = msg.getSender();
+                    userId = msg.getSender().getId();
                     Integer mappedRoomId = userRoomMapping.get(userId);
                     if (mappedRoomId == null) {
                         responseObserver.onError(new Throwable("Usuario no registrado en ninguna sala. Conéctate a una sala primero mediante connectToRoom."));

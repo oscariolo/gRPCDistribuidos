@@ -21,7 +21,7 @@ service UserService {
 }
 
 message ChatMessage{
-    int32 sender = 1; //id del remitente
+    User sender = 1; //usuario que envia el mensaje
     string message = 2; //mensaje
     Room room = 3; //sala a la que pertenece el mensaje
 }

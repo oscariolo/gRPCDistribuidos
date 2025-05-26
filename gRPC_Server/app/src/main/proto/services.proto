@@ -25,7 +25,7 @@ service UserService {
 
 //Objeto ChatMessage que representa un mensaje de chat
 message ChatMessage{
-    int32 sender = 1; //id del remitente
+    User sender = 1; //id del remitente
     string message = 2; //mensaje
     Room room = 3; //sala a la que pertenece el mensaje
 }

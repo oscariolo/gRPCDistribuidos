@@ -73,7 +73,10 @@ def chat(user, chat_stub, room):
 
     def message_stream():
         yield services_pb2.ChatMessage(
-            sender=user.id,
+            sender=services_pb2.User(
+                id=user.id,
+                registration=user.registration
+            ),
             message="__handshake__",
             room=services_pb2.Room(
                 id=room.id,
@@ -86,7 +89,10 @@ def chat(user, chat_stub, room):
             if text.strip() == "/exit":
                 break
             yield services_pb2.ChatMessage(
-                sender=user.id,
+                sender=services_pb2.User(
+                    id=user.id,
+                    registration=user.registration
+                ),
                 message=text,
                 room=services_pb2.Room(
                     id=room.id,
@@ -101,7 +107,7 @@ def chat(user, chat_stub, room):
             if response.message == "__handshake__":
                 pass  # Ignorar mensajes de handshake
             else:
-                print(f"[{response.sender}]: {response.message}")
+                print(f"[{response.sender.registration.username}]: {response.message}")
     except grpc.RpcError as e:
         print("Error en el chat:", e.details())
 
